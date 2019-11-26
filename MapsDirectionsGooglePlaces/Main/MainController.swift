@@ -8,15 +8,17 @@
 
 import UIKit
 import MapKit
+import LBTATools
 
 class MainController: UIViewController {
     
+    let mapView = MKMapView()
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        let mapView = MKMapView(frame: view.frame)
         view.addSubview(mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        
+        mapView.fillSuperview()
+        mapView.mapType = .hybrid
     }
 }

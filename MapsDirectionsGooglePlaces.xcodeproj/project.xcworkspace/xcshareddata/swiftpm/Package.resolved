@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "LBTATools",
+        "repositoryURL": "https://github.com/bhlvoong/LBTATools.git",
+        "state": {
+          "branch": null,
+          "revision": "3f4bdf77eea8e218ac47605da725c42e1b505927",
+          "version": "1.0.15"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

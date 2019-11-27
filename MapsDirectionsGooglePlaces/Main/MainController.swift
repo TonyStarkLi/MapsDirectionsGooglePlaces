@@ -18,10 +18,23 @@ class MainController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        mapView.delegate = self
+        
         view.addSubview(mapView)
         mapView.fillSuperview()
         
         setupRegionForMap()
+        
+        setupAnnotationsForMap()
+    }
+    
+    fileprivate func setupAnnotationsForMap() {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 40.7, longitude: -73.9)
+//        annotation.title = "san"
+        mapView.addAnnotation(annotation)
+        mapView.showAnnotations(self.mapView.annotations, animated: true)
     }
     
     fileprivate func setupRegionForMap() {
@@ -56,5 +69,14 @@ struct MainPreview: PreviewProvider {
         
         typealias UIViewControllerType = MainController
         
+    }
+}
+
+extension MainController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        // Custom pin
+        let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "id")
+        return annotationView
     }
 }

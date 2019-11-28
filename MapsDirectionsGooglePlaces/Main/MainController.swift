@@ -26,7 +26,34 @@ class MainController: UIViewController {
         
         setupRegionForMap()
         
-        setupAnnotationsForMap()
+        performLocalSearch()
+//        setupAnnotationsForMap()
+    }
+    
+    fileprivate func performLocalSearch() {
+        let request = MKLocalSearch.Request()
+        // This two has to specify
+        request.naturalLanguageQuery = "airport"
+        request.region = mapView.region
+        let localSearch = MKLocalSearch(request: request)
+        localSearch.start { (resp, err) in
+            if let err = err {
+                print("Failed local search: ", err)
+                return
+            }
+            
+            // Success
+            resp?.mapItems.forEach({ (mapItem) in
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = mapItem.placemark.coordinate
+                annotation.title = mapItem.name
+                self.mapView.addAnnotation(annotation)
+                
+            })
+            
+            self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+        }
     }
     
     fileprivate func setupAnnotationsForMap() {
